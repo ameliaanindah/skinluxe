@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendation Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container my-5">
+        <h2 class="text-center mb-4" style="color: #b02954;">Your Recommended Skincare Products</h2>
+        <table class="table table-striped table-bordered shadow-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Brand</th>
+                    <th>Label</th>
+                    <th>Price</th>
+                    <th>Rank</th>
+                    <th>Skin Type Compatibility</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if recommended_products %}
+                    {% for idx, product in enumerate(recommended_products) %}
+                        <tr>
+                            <td>{{ idx + 1 }}</td>
+                            <td>{{ product['Name'] }}</td>
+                            <td>{{ product['Brand'] }}</td>
+                            <td>{{ product['Label'] }}</td>
+                            <td>${{ product['Price'] }}</td>
+                            <td>{{ product['Rank'] }}</td>
+                            <td>
+                                {% if product['Combination'] == 1 %} Combination {% endif %}
+                                {% if product['Dry'] == 1 %} Dry {% endif %}
+                                {% if product['Normal'] == 1 %} Normal {% endif %}
+                                {% if product['Oily'] == 1 %} Oily {% endif %}
+                                {% if product['Sensitive'] == 1 %} Sensitive {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center">No products match your preferences.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        <div class="text-center mt-4">
+            <a href="/home" class="btn btn-primary" style="background-color: #b02954; border-color: #b02954;">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>
